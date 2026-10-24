@@ -124,7 +124,7 @@ namespace BetterEtch_O_Sketch_Fall26
         {
             // create a graphics object named g that draws on the PictureBox
             Graphics g = DisplayPictureBox.CreateGraphics();
-            g.Clear(this.BackGround);
+            g.Clear(this.BackGround); // clear the background before drawing the sine wave
             DrawGrid();
             // create a pen to draw with
             Pen thePen = new Pen(Color.Lime);
