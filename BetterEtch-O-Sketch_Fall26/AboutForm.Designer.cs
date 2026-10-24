@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             AboutLabel = new Label();
+            AboutOkButton = new Button();
             SuspendLayout();
             // 
             // AboutLabel
@@ -40,11 +41,22 @@
             AboutLabel.TabIndex = 0;
             AboutLabel.Text = "label";
             // 
+            // AboutOkButton
+            // 
+            AboutOkButton.Location = new Point(254, 198);
+            AboutOkButton.Name = "AboutOkButton";
+            AboutOkButton.Size = new Size(112, 34);
+            AboutOkButton.TabIndex = 1;
+            AboutOkButton.Text = "&Ok";
+            AboutOkButton.UseVisualStyleBackColor = true;
+            AboutOkButton.Click += AboutOkButton_Click;
+            // 
             // AboutForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(378, 244);
+            Controls.Add(AboutOkButton);
             Controls.Add(AboutLabel);
             Name = "AboutForm";
             Text = "AboutForm";
@@ -55,5 +67,6 @@
         #endregion
 
         private Label AboutLabel;
+        private Button AboutOkButton;
     }
 }

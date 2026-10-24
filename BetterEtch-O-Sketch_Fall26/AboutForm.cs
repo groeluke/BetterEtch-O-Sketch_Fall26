@@ -13,6 +13,22 @@ namespace BetterEtch_O_Sketch_Fall26
         public AboutForm()
         {
             InitializeComponent();
+            UpdateLabel();
+        }
+
+        void UpdateLabel()
+        {
+            AboutLabel.Text =
+                $"Etch-O-Sketch\n" +
+                $"ACME Inc.\n" +
+                $"Version 2.0.0\n" +
+                $"123Wabbit Woad\n" +
+                $"Your Mother's House";
+        }
+
+        private void AboutOkButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
