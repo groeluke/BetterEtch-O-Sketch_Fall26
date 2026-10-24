@@ -109,7 +109,7 @@ namespace BetterEtch_O_Sketch_Fall26
         {
             if (ToolComboBox.SelectedItem != null)
             {
-                this.penWidth = int.Parse(ToolComboBox.SelectedItem.ToString());
+                this.penWidth = Convert.ToInt32(ToolComboBox.SelectedItem);
             }
         }
         void DrawSineWave()
@@ -130,7 +130,7 @@ namespace BetterEtch_O_Sketch_Fall26
             // move the origin (start) of the drawing area to the center of the picture box
             g.ScaleTransform(scaleX, scaleY);
             // scale the drawing area so that the sine wave is wider and flip
-            // the y-axis so that positive values go upinstead of down
+            // the y-axis so that positive values go up instead of down
             for (int currentX = 0; currentX < 360; currentX++)
             {
                 currentY = (int)(Math.Round(100 * Math.Sin((Math.PI / 180) * currentX)));
@@ -161,7 +161,6 @@ namespace BetterEtch_O_Sketch_Fall26
             g.Dispose();
             thePen.Dispose();
         }
-
 
         // Event Handler Below here********************************************
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
