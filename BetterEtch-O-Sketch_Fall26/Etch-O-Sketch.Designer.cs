@@ -28,18 +28,251 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            ExitButton = new Button();
+            BottomStatusStrip = new StatusStrip();
+            TopMenuStrip = new MenuStrip();
+            FileToolStripMenuItem = new ToolStripMenuItem();
+            ExitToolStripMenuItem = new ToolStripMenuItem();
+            EditToolStripMenuItem = new ToolStripMenuItem();
+            SelectColorToolStripMenuItem = new ToolStripMenuItem();
+            DrawWaveformsToolStripMenuItem = new ToolStripMenuItem();
+            ClearToolStripMenuItem = new ToolStripMenuItem();
+            HelpToolStripMenuItem = new ToolStripMenuItem();
+            AboutToolStripMenuItem = new ToolStripMenuItem();
+            MainToolTip = new ToolTip(components);
+            DrawSineWavesButton = new Button();
+            ClearButton = new Button();
+            ButtonGroupBox = new GroupBox();
+            MouseRadioButton = new RadioButton();
+            ExternalRadioButton = new RadioButton();
+            RadioGroupBox = new GroupBox();
+            SelectColorButton = new Button();
+            DisplayPictureBox = new PictureBox();
+            TopMenuStrip.SuspendLayout();
+            ButtonGroupBox.SuspendLayout();
+            RadioGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)DisplayPictureBox).BeginInit();
             SuspendLayout();
+            // 
+            // ExitButton
+            // 
+            ExitButton.Location = new Point(435, 30);
+            ExitButton.Name = "ExitButton";
+            ExitButton.Size = new Size(137, 60);
+            ExitButton.TabIndex = 0;
+            ExitButton.Text = "E&xit";
+            ExitButton.UseVisualStyleBackColor = true;
+            ExitButton.Click += ExitButton_Click;
+            // 
+            // BottomStatusStrip
+            // 
+            BottomStatusStrip.ImageScalingSize = new Size(24, 24);
+            BottomStatusStrip.Location = new Point(0, 428);
+            BottomStatusStrip.Name = "BottomStatusStrip";
+            BottomStatusStrip.Size = new Size(800, 22);
+            BottomStatusStrip.TabIndex = 1;
+            BottomStatusStrip.Text = "statusStrip1";
+            // 
+            // TopMenuStrip
+            // 
+            TopMenuStrip.ImageScalingSize = new Size(24, 24);
+            TopMenuStrip.Items.AddRange(new ToolStripItem[] { FileToolStripMenuItem, EditToolStripMenuItem, HelpToolStripMenuItem });
+            TopMenuStrip.Location = new Point(0, 0);
+            TopMenuStrip.Name = "TopMenuStrip";
+            TopMenuStrip.Size = new Size(800, 33);
+            TopMenuStrip.TabIndex = 2;
+            TopMenuStrip.Text = "menuStrip1";
+            // 
+            // FileToolStripMenuItem
+            // 
+            FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ExitToolStripMenuItem });
+            FileToolStripMenuItem.Name = "FileToolStripMenuItem";
+            FileToolStripMenuItem.Size = new Size(54, 29);
+            FileToolStripMenuItem.Text = "File";
+            // 
+            // ExitToolStripMenuItem
+            // 
+            ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
+            ExitToolStripMenuItem.Size = new Size(270, 34);
+            ExitToolStripMenuItem.Text = "Exit";
+            ExitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
+            // 
+            // EditToolStripMenuItem
+            // 
+            EditToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SelectColorToolStripMenuItem, DrawWaveformsToolStripMenuItem, ClearToolStripMenuItem });
+            EditToolStripMenuItem.Name = "EditToolStripMenuItem";
+            EditToolStripMenuItem.Size = new Size(58, 29);
+            EditToolStripMenuItem.Text = "Edit";
+            // 
+            // SelectColorToolStripMenuItem
+            // 
+            SelectColorToolStripMenuItem.Name = "SelectColorToolStripMenuItem";
+            SelectColorToolStripMenuItem.Size = new Size(270, 34);
+            SelectColorToolStripMenuItem.Text = "Select Color";
+            SelectColorToolStripMenuItem.Click += SelectColorToolStripMenuItem_Click;
+            // 
+            // DrawWaveformsToolStripMenuItem
+            // 
+            DrawWaveformsToolStripMenuItem.Name = "DrawWaveformsToolStripMenuItem";
+            DrawWaveformsToolStripMenuItem.Size = new Size(270, 34);
+            DrawWaveformsToolStripMenuItem.Text = "Draw Waveforms";
+            DrawWaveformsToolStripMenuItem.Click += DrawWaveformsToolStripMenuItem_Click;
+            // 
+            // ClearToolStripMenuItem
+            // 
+            ClearToolStripMenuItem.Name = "ClearToolStripMenuItem";
+            ClearToolStripMenuItem.Size = new Size(270, 34);
+            ClearToolStripMenuItem.Text = "Clear";
+            ClearToolStripMenuItem.Click += ClearToolStripMenuItem_Click;
+            // 
+            // HelpToolStripMenuItem
+            // 
+            HelpToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { AboutToolStripMenuItem });
+            HelpToolStripMenuItem.Name = "HelpToolStripMenuItem";
+            HelpToolStripMenuItem.Size = new Size(65, 29);
+            HelpToolStripMenuItem.Text = "Help";
+            // 
+            // AboutToolStripMenuItem
+            // 
+            AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
+            AboutToolStripMenuItem.Size = new Size(164, 34);
+            AboutToolStripMenuItem.Text = "About";
+            AboutToolStripMenuItem.Click += AboutToolStripMenuItem_Click;
+            // 
+            // DrawSineWavesButton
+            // 
+            DrawSineWavesButton.Location = new Point(292, 30);
+            DrawSineWavesButton.Name = "DrawSineWavesButton";
+            DrawSineWavesButton.Size = new Size(137, 60);
+            DrawSineWavesButton.TabIndex = 3;
+            DrawSineWavesButton.Text = "&Draw Sinewave";
+            DrawSineWavesButton.UseVisualStyleBackColor = true;
+            DrawSineWavesButton.Click += DrawSineWavesButton_Click;
+            // 
+            // ClearButton
+            // 
+            ClearButton.Location = new Point(149, 30);
+            ClearButton.Name = "ClearButton";
+            ClearButton.Size = new Size(137, 60);
+            ClearButton.TabIndex = 4;
+            ClearButton.Text = "&Clear";
+            ClearButton.UseVisualStyleBackColor = true;
+            ClearButton.Click += ClearButton_Click;
+            // 
+            // ButtonGroupBox
+            // 
+            ButtonGroupBox.Controls.Add(SelectColorButton);
+            ButtonGroupBox.Controls.Add(ExitButton);
+            ButtonGroupBox.Controls.Add(ClearButton);
+            ButtonGroupBox.Controls.Add(DrawSineWavesButton);
+            ButtonGroupBox.Location = new Point(211, 309);
+            ButtonGroupBox.Name = "ButtonGroupBox";
+            ButtonGroupBox.Size = new Size(577, 103);
+            ButtonGroupBox.TabIndex = 5;
+            ButtonGroupBox.TabStop = false;
+            ButtonGroupBox.Text = "Main Controls";
+            // 
+            // MouseRadioButton
+            // 
+            MouseRadioButton.AutoSize = true;
+            MouseRadioButton.Location = new Point(6, 29);
+            MouseRadioButton.Name = "MouseRadioButton";
+            MouseRadioButton.Size = new Size(137, 29);
+            MouseRadioButton.TabIndex = 6;
+            MouseRadioButton.TabStop = true;
+            MouseRadioButton.Text = "Mouse Draw";
+            MainToolTip.SetToolTip(MouseRadioButton, "Draw with the Mouse");
+            MouseRadioButton.UseVisualStyleBackColor = true;
+            MouseRadioButton.CheckedChanged += MouseRadioButton_CheckedChanged;
+            // 
+            // ExternalRadioButton
+            // 
+            ExternalRadioButton.AutoSize = true;
+            ExternalRadioButton.Location = new Point(6, 64);
+            ExternalRadioButton.Name = "ExternalRadioButton";
+            ExternalRadioButton.Size = new Size(144, 29);
+            ExternalRadioButton.TabIndex = 7;
+            ExternalRadioButton.TabStop = true;
+            ExternalRadioButton.Text = "External Darw";
+            MainToolTip.SetToolTip(ExternalRadioButton, "Draw with an External Device");
+            ExternalRadioButton.UseVisualStyleBackColor = true;
+            ExternalRadioButton.CheckedChanged += ExternalRadioButton_CheckedChanged;
+            // 
+            // RadioGroupBox
+            // 
+            RadioGroupBox.Controls.Add(MouseRadioButton);
+            RadioGroupBox.Controls.Add(ExternalRadioButton);
+            RadioGroupBox.Location = new Point(12, 312);
+            RadioGroupBox.Name = "RadioGroupBox";
+            RadioGroupBox.Size = new Size(148, 100);
+            RadioGroupBox.TabIndex = 8;
+            RadioGroupBox.TabStop = false;
+            RadioGroupBox.Text = "Draw Controls";
+            // 
+            // SelectColorButton
+            // 
+            SelectColorButton.Location = new Point(6, 30);
+            SelectColorButton.Name = "SelectColorButton";
+            SelectColorButton.Size = new Size(137, 60);
+            SelectColorButton.TabIndex = 5;
+            SelectColorButton.Text = "&Select Color";
+            SelectColorButton.UseVisualStyleBackColor = true;
+            SelectColorButton.Click += SelectColorButton_Click;
+            // 
+            // DisplayPictureBox
+            // 
+            DisplayPictureBox.Location = new Point(12, 36);
+            DisplayPictureBox.Name = "DisplayPictureBox";
+            DisplayPictureBox.Size = new Size(771, 270);
+            DisplayPictureBox.TabIndex = 9;
+            DisplayPictureBox.TabStop = false;
+            DisplayPictureBox.Click += DisplayPictureBox_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(DisplayPictureBox);
+            Controls.Add(RadioGroupBox);
+            Controls.Add(ButtonGroupBox);
+            Controls.Add(BottomStatusStrip);
+            Controls.Add(TopMenuStrip);
+            MainMenuStrip = TopMenuStrip;
             Name = "Form1";
             Text = "Better Etch-O-sketch";
+            TopMenuStrip.ResumeLayout(false);
+            TopMenuStrip.PerformLayout();
+            ButtonGroupBox.ResumeLayout(false);
+            RadioGroupBox.ResumeLayout(false);
+            RadioGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)DisplayPictureBox).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Button ExitButton;
+        private StatusStrip BottomStatusStrip;
+        private MenuStrip TopMenuStrip;
+        private ToolStripMenuItem FileToolStripMenuItem;
+        private ToolStripMenuItem EditToolStripMenuItem;
+        private ToolStripMenuItem SelectColorToolStripMenuItem;
+        private ToolStripMenuItem DrawWaveformsToolStripMenuItem;
+        private ToolStripMenuItem HelpToolStripMenuItem;
+        private ToolStripMenuItem AboutToolStripMenuItem;
+        private ToolStripMenuItem ExitToolStripMenuItem;
+        private ToolStripMenuItem ClearToolStripMenuItem;
+        private ToolTip MainToolTip;
+        private Button DrawSineWavesButton;
+        private Button ClearButton;
+        private GroupBox ButtonGroupBox;
+        private RadioButton MouseRadioButton;
+        private RadioButton ExternalRadioButton;
+        private GroupBox RadioGroupBox;
+        private Button SelectColorButton;
+        private PictureBox DisplayPictureBox;
     }
 }
