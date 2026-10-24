@@ -1,3 +1,11 @@
+/*Luke Groesbeck
+*Fall 2026
+*RCET 3371
+*DartGame
+*Advanced Programming Techniques & GUI Development
+*https://github.com/groeluke/BetterEtch-O-Sketch_Fall26.git
+*/
+
 using System.IO.Ports;
 namespace BetterEtch_O_Sketch_Fall26
 {
@@ -32,7 +40,6 @@ namespace BetterEtch_O_Sketch_Fall26
             MouseRadioButton.Checked = true; // start in mouse mode
         }
         int oldX, oldY;
-
         private Color penColor = Color.Black;
         private Color BackGround = Color.White;
         private int penWidth = 3;
@@ -230,7 +237,7 @@ namespace BetterEtch_O_Sketch_Fall26
             }
             catch
             {
-                // the USB adapter may already be unplugged
+               
             }
         }
 
@@ -244,6 +251,7 @@ namespace BetterEtch_O_Sketch_Fall26
         }
 
         // The reply is 6 bytes: 24 41 03 channel HH LL
+        // This is from the UART week and takes the ADC can converts it
         void ReadAdcReply()
         {
             byte[] reply = new byte[6];
