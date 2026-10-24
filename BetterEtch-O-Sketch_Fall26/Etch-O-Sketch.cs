@@ -66,5 +66,25 @@ namespace BetterEtch_O_Sketch_Fall26
         {
 
         }
+
+        private void ClearMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PenColorMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BackGroundColorMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ToolComboBox_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

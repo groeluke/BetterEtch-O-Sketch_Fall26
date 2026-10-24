@@ -151,7 +151,7 @@
             // AboutToolStripMenuItem
             // 
             AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
-            AboutToolStripMenuItem.Size = new Size(270, 34);
+            AboutToolStripMenuItem.Size = new Size(164, 34);
             AboutToolStripMenuItem.Text = "About";
             AboutToolStripMenuItem.ToolTipText = "See the About section";
             AboutToolStripMenuItem.Click += AboutToolStripMenuItem_Click;
@@ -274,6 +274,7 @@
             ClearMenuItem.Name = "ClearMenuItem";
             ClearMenuItem.Size = new Size(240, 32);
             ClearMenuItem.Text = "Clear";
+            ClearMenuItem.Click += ClearMenuItem_Click;
             // 
             // ColorMenuItem
             // 
@@ -287,12 +288,14 @@
             PenColorMenuItem.Name = "PenColorMenuItem";
             PenColorMenuItem.Size = new Size(270, 34);
             PenColorMenuItem.Text = "Pen Color";
+            PenColorMenuItem.Click += PenColorMenuItem_Click;
             // 
             // BackGroundColorMenuItem
             // 
             BackGroundColorMenuItem.Name = "BackGroundColorMenuItem";
             BackGroundColorMenuItem.Size = new Size(270, 34);
             BackGroundColorMenuItem.Text = "Back Ground Color";
+            BackGroundColorMenuItem.Click += BackGroundColorMenuItem_Click;
             // 
             // PenMenuItem
             // 
@@ -305,6 +308,7 @@
             // 
             ToolComboBox.Name = "ToolComboBox";
             ToolComboBox.Size = new Size(121, 33);
+            ToolComboBox.Click += ToolComboBox_Click;
             // 
             // Form1
             // 
