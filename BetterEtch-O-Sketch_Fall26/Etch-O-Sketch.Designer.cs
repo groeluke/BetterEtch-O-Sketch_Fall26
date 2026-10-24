@@ -44,16 +44,24 @@
             DrawSineWavesButton = new Button();
             ClearButton = new Button();
             ButtonGroupBox = new GroupBox();
+            SelectColorButton = new Button();
             MouseRadioButton = new RadioButton();
             ExternalRadioButton = new RadioButton();
             RadioGroupBox = new GroupBox();
-            SelectColorButton = new Button();
             DisplayPictureBox = new PictureBox();
             PortsComboBox = new ComboBox();
+            DisplayContextMenuStrip = new ContextMenuStrip(components);
+            ClearMenuItem = new ToolStripMenuItem();
+            ColorMenuItem = new ToolStripMenuItem();
+            PenColorMenuItem = new ToolStripMenuItem();
+            BackGroundColorMenuItem = new ToolStripMenuItem();
+            PenMenuItem = new ToolStripMenuItem();
+            ToolComboBox = new ToolStripComboBox();
             TopMenuStrip.SuspendLayout();
             ButtonGroupBox.SuspendLayout();
             RadioGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DisplayPictureBox).BeginInit();
+            DisplayContextMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // ExitButton
@@ -96,7 +104,7 @@
             // ExitToolStripMenuItem
             // 
             ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            ExitToolStripMenuItem.Size = new Size(270, 34);
+            ExitToolStripMenuItem.Size = new Size(141, 34);
             ExitToolStripMenuItem.Text = "Exit";
             ExitToolStripMenuItem.ToolTipText = "Exit the form";
             ExitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
@@ -112,7 +120,7 @@
             // SelectColorToolStripMenuItem
             // 
             SelectColorToolStripMenuItem.Name = "SelectColorToolStripMenuItem";
-            SelectColorToolStripMenuItem.Size = new Size(270, 34);
+            SelectColorToolStripMenuItem.Size = new Size(250, 34);
             SelectColorToolStripMenuItem.Text = "Select Color";
             SelectColorToolStripMenuItem.ToolTipText = "Select a color";
             SelectColorToolStripMenuItem.Click += SelectColorToolStripMenuItem_Click;
@@ -120,7 +128,7 @@
             // DrawWaveformsToolStripMenuItem
             // 
             DrawWaveformsToolStripMenuItem.Name = "DrawWaveformsToolStripMenuItem";
-            DrawWaveformsToolStripMenuItem.Size = new Size(270, 34);
+            DrawWaveformsToolStripMenuItem.Size = new Size(250, 34);
             DrawWaveformsToolStripMenuItem.Text = "Draw Waveforms";
             DrawWaveformsToolStripMenuItem.ToolTipText = "Draw a Sinewave";
             DrawWaveformsToolStripMenuItem.Click += DrawWaveformsToolStripMenuItem_Click;
@@ -128,7 +136,7 @@
             // ClearToolStripMenuItem
             // 
             ClearToolStripMenuItem.Name = "ClearToolStripMenuItem";
-            ClearToolStripMenuItem.Size = new Size(270, 34);
+            ClearToolStripMenuItem.Size = new Size(250, 34);
             ClearToolStripMenuItem.Text = "Clear";
             ClearToolStripMenuItem.ToolTipText = "Clear the Picture";
             ClearToolStripMenuItem.Click += ClearToolStripMenuItem_Click;
@@ -184,6 +192,17 @@
             ButtonGroupBox.Text = "Main Controls";
             MainToolTip.SetToolTip(ButtonGroupBox, "Main controls for drawing");
             // 
+            // SelectColorButton
+            // 
+            SelectColorButton.Location = new Point(6, 30);
+            SelectColorButton.Name = "SelectColorButton";
+            SelectColorButton.Size = new Size(137, 60);
+            SelectColorButton.TabIndex = 5;
+            SelectColorButton.Text = "&Select Color";
+            MainToolTip.SetToolTip(SelectColorButton, "Select the color of the pen");
+            SelectColorButton.UseVisualStyleBackColor = true;
+            SelectColorButton.Click += SelectColorButton_Click;
+            // 
             // MouseRadioButton
             // 
             MouseRadioButton.AutoSize = true;
@@ -223,17 +242,6 @@
             RadioGroupBox.Text = "Draw Controls";
             MainToolTip.SetToolTip(RadioGroupBox, "Select draw controls");
             // 
-            // SelectColorButton
-            // 
-            SelectColorButton.Location = new Point(6, 30);
-            SelectColorButton.Name = "SelectColorButton";
-            SelectColorButton.Size = new Size(137, 60);
-            SelectColorButton.TabIndex = 5;
-            SelectColorButton.Text = "&Select Color";
-            MainToolTip.SetToolTip(SelectColorButton, "Select the color of the pen");
-            SelectColorButton.UseVisualStyleBackColor = true;
-            SelectColorButton.Click += SelectColorButton_Click;
-            // 
             // DisplayPictureBox
             // 
             DisplayPictureBox.Location = new Point(12, 36);
@@ -252,6 +260,51 @@
             PortsComboBox.Size = new Size(776, 33);
             PortsComboBox.TabIndex = 10;
             MainToolTip.SetToolTip(PortsComboBox, "Com Ports available for conection");
+            // 
+            // DisplayContextMenuStrip
+            // 
+            DisplayContextMenuStrip.ImageScalingSize = new Size(24, 24);
+            DisplayContextMenuStrip.Items.AddRange(new ToolStripItem[] { ClearMenuItem, ColorMenuItem, PenMenuItem });
+            DisplayContextMenuStrip.Name = "DisplayContextMenuStrip";
+            DisplayContextMenuStrip.Size = new Size(149, 100);
+            MainToolTip.SetToolTip(DisplayContextMenuStrip, "More control of the display");
+            // 
+            // ClearMenuItem
+            // 
+            ClearMenuItem.Name = "ClearMenuItem";
+            ClearMenuItem.Size = new Size(240, 32);
+            ClearMenuItem.Text = "Clear";
+            // 
+            // ColorMenuItem
+            // 
+            ColorMenuItem.DropDownItems.AddRange(new ToolStripItem[] { PenColorMenuItem, BackGroundColorMenuItem });
+            ColorMenuItem.Name = "ColorMenuItem";
+            ColorMenuItem.Size = new Size(240, 32);
+            ColorMenuItem.Text = "Color";
+            // 
+            // PenColorMenuItem
+            // 
+            PenColorMenuItem.Name = "PenColorMenuItem";
+            PenColorMenuItem.Size = new Size(270, 34);
+            PenColorMenuItem.Text = "Pen Color";
+            // 
+            // BackGroundColorMenuItem
+            // 
+            BackGroundColorMenuItem.Name = "BackGroundColorMenuItem";
+            BackGroundColorMenuItem.Size = new Size(270, 34);
+            BackGroundColorMenuItem.Text = "Back Ground Color";
+            // 
+            // PenMenuItem
+            // 
+            PenMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ToolComboBox });
+            PenMenuItem.Name = "PenMenuItem";
+            PenMenuItem.Size = new Size(240, 32);
+            PenMenuItem.Text = "Pen Size";
+            // 
+            // ToolComboBox
+            // 
+            ToolComboBox.Name = "ToolComboBox";
+            ToolComboBox.Size = new Size(121, 33);
             // 
             // Form1
             // 
@@ -273,6 +326,7 @@
             RadioGroupBox.ResumeLayout(false);
             RadioGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)DisplayPictureBox).EndInit();
+            DisplayContextMenuStrip.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -300,5 +354,12 @@
         private Button SelectColorButton;
         private PictureBox DisplayPictureBox;
         private ComboBox PortsComboBox;
+        private ContextMenuStrip DisplayContextMenuStrip;
+        private ToolStripMenuItem ClearMenuItem;
+        private ToolStripMenuItem ColorMenuItem;
+        private ToolStripMenuItem PenColorMenuItem;
+        private ToolStripMenuItem BackGroundColorMenuItem;
+        private ToolStripMenuItem PenMenuItem;
+        private ToolStripComboBox ToolComboBox;
     }
 }
