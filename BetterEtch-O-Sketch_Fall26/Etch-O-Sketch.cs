@@ -166,7 +166,15 @@ namespace BetterEtch_O_Sketch_Fall26
         // Event Handler Below here********************************************
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            AboutForm aboutForm = new AboutForm(); //instantitate the about form
+            aboutForm.FormClosed += AboutForm_FormClosed; //map the FormClosed event to a handler
+            aboutForm.Show(); // show the about form
+            this.Hide();// hide the main form while the about form is open
+        }
 
+        private void AboutForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Show(); // show the main form again when the about form is closed
         }
 
         private void SelectColorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -209,19 +217,26 @@ namespace BetterEtch_O_Sketch_Fall26
             UpdatePenColor();
         }
 
-        private void MouseRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (MouseRadioButton.Checked)
-            {
-                DrawingStatusLabel.Text = "Mouse Mode";
-            }
-        }
-
         private void DisplayPictureBox_MouseStuff(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && MouseRadioButton.Checked)
+            DrawingStatusLabel.Text = $"({e.X},{e.Y}) | {e.Button} " +
+                $"| {this.penColor} | {this.penWidth}";
+
+            switch (e.Button)
             {
-                DrawLineSegment(e.X, e.Y);
+                case MouseButtons.Left:
+                    DrawLineSegment(e.X, e.Y); // only draw when the left mouse button is down
+                    break;
+                case MouseButtons.Right:
+                    // Save for context menu
+                    break;
+                case MouseButtons.Middle:
+                    UpdatePenColor();
+                    // TODO open color picker dialogue
+                    break;
+                default:
+                    //MessageBox.Show($"{e.Button}");
+                    break;
             }
             // save the current mouse position for the next time we draw a line segment
             this.oldX = e.X;
