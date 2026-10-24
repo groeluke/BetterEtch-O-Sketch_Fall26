@@ -215,7 +215,6 @@
             MainToolTip.SetToolTip(MouseRadioButton, "Draw with the Mouse");
             MouseRadioButton.UseCompatibleTextRendering = true;
             MouseRadioButton.UseVisualStyleBackColor = true;
-            MouseRadioButton.CheckedChanged += MouseRadioButton_CheckedChanged;
             // 
             // ExternalRadioButton
             // 
@@ -250,7 +249,6 @@
             DisplayPictureBox.TabIndex = 9;
             DisplayPictureBox.TabStop = false;
             MainToolTip.SetToolTip(DisplayPictureBox, "Draw here");
-            DisplayPictureBox.Click += DisplayPictureBox_Click;
             // 
             // PortsComboBox
             // 
@@ -308,7 +306,7 @@
             // 
             ToolComboBox.Name = "ToolComboBox";
             ToolComboBox.Size = new Size(121, 33);
-            ToolComboBox.Click += ToolComboBox_Click;
+            //ToolComboBox.Click += ToolComboBox_Click;
             // 
             // Form1
             // 

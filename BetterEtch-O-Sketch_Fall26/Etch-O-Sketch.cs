@@ -1,3 +1,4 @@
+using System.IO.Ports;
 namespace BetterEtch_O_Sketch_Fall26
 {
     public partial class Form1 : Form
@@ -162,6 +163,128 @@ namespace BetterEtch_O_Sketch_Fall26
             thePen.Dispose();
         }
 
+        private SerialPort picPort = new SerialPort();
+        private System.Windows.Forms.Timer PicTimer = new System.Windows.Forms.Timer();
+        private bool waiting = false;          // true after we asked the PIC for a reading
+        private DateTime replyDeadline;        // give up if no answer by this time
+        private int nextChannel = 0;           // 0 = X pot, 1 = Y pot (check your wiring!)
+        private int potX, potY;                // latest pot positions in pixels
+        private bool havePicPoint = false;     // false until the first full X,Y reading
+
+        void LoadPorts()
+        {
+            string[] ports = SerialPort.GetPortNames();
+            PortsComboBox.Items.Clear();
+            foreach (string name in ports)
+            {
+                PortsComboBox.Items.Add(name);
+            }
+            if (PortsComboBox.Items.Count > 0)
+            {
+                PortsComboBox.SelectedIndex = 0;
+            }
+        }
+
+        // Opens the selected COM port and starts asking for readings.
+        void ConnectToPic()
+        {
+            if (PortsComboBox.Text == "")
+            {
+                PicError("No COM port selected. Plug in the PIC and pick a port.");
+                return;
+            }
+            try
+            {
+                picPort.PortName = PortsComboBox.Text;
+                picPort.BaudRate = 9600;
+                picPort.DataBits = 8;
+                picPort.Parity = Parity.None;
+                picPort.StopBits = StopBits.One;
+                picPort.WriteTimeout = 250;
+                picPort.Open();
+                picPort.DiscardInBuffer();
+
+                waiting = false;
+                havePicPoint = false;
+                nextChannel = 0;
+                PicTimer.Start();
+                DrawingStatusLabel.Text = "External mode: " + picPort.PortName;
+            }
+            catch (Exception ex)
+            {
+                PicError("Could not open " + PortsComboBox.Text + ": " + ex.Message);
+            }
+        }
+
+        // Stops asking for readings and closes the port.
+        void DisconnectPic()
+        {
+            PicTimer.Stop();
+            waiting = false;
+            try
+            {
+                if (picPort.IsOpen)
+                {
+                    picPort.Close();
+                }
+            }
+            catch
+            {
+                // the USB adapter may already be unplugged
+            }
+        }
+
+        // Something went wrong: close the port, go back to mouse mode, tell the user.
+        void PicError(string message)
+        {
+            DisconnectPic();
+            MouseRadioButton.Checked = true;
+            DrawingStatusLabel.Text = "COM ERR";
+            MessageBox.Show(message, "PIC connection problem");
+        }
+
+        // The reply is 6 bytes: 24 41 03 channel HH LL
+        void ReadAdcReply()
+        {
+            byte[] reply = new byte[6];
+            picPort.Read(reply, 0, 6);
+            waiting = false;
+
+            if (reply[0] != 0x24 || reply[1] != 0x41)
+            {
+                picPort.DiscardInBuffer(); // out of sync, throw it away and ask again
+                return;
+            }
+
+            int channel = reply[3];
+            int adc = ((reply[4] & 0x03) << 8) | reply[5]; // 10-bit value, 0 to 1023
+
+            if (channel == 0)
+            {
+                // scale 0-1023 to a pixel position
+                potX = adc * DisplayPictureBox.Width / 1024;
+                nextChannel = 1;
+            }
+            else
+            {
+                potY = adc * DisplayPictureBox.Height / 1024;
+                nextChannel = 0;
+                DrawFromPots(); // we now have a fresh X and Y
+            }
+        }
+
+        // Draws from the last pot position to the new one.
+        void DrawFromPots()
+        {
+            if (havePicPoint)
+            {
+                DrawLineSegment(potX, potY); // uses oldX and oldY as the start
+            }
+            oldX = potX;
+            oldY = potY;
+            havePicPoint = true; // the first reading only sets the starting point
+        }
+
         // Event Handler Below here********************************************
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -216,7 +339,7 @@ namespace BetterEtch_O_Sketch_Fall26
             UpdatePenColor();
         }
 
-        private void DisplayPictureBox_MouseStuff(object sender, MouseEventArgs e)
+        private void DisplayPictureBox_MouseStuff(object? sender, MouseEventArgs e)
         {
             DrawingStatusLabel.Text = $"({e.X},{e.Y}) | {e.Button} " +
                 $"| {this.penColor} | {this.penWidth}";
@@ -224,17 +347,12 @@ namespace BetterEtch_O_Sketch_Fall26
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    DrawLineSegment(e.X, e.Y); // only draw when the left mouse button is down
-                    break;
-                case MouseButtons.Right:
-                    // Save for context menu
-                    break;
-                case MouseButtons.Middle:
-                    UpdatePenColor();
-                    // TODO open color picker dialogue
+                    if (MouseRadioButton.Checked) // only draw in mouse mode
+                    {
+                        DrawLineSegment(e.X, e.Y);
+                    }
                     break;
                 default:
-                    //MessageBox.Show($"{e.Button}");
                     break;
             }
             // save the current mouse position for the next time we draw a line segment
@@ -266,6 +384,71 @@ namespace BetterEtch_O_Sketch_Fall26
         private void BackGroundColorMenuItem_Click(object sender, EventArgs e)
         {
             UpdateBackGroundColor();
+        }
+
+        private void ExternalRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ExternalRadioButton.Checked)
+            {
+                ConnectToPic();
+            }
+            else
+            {
+                DisconnectPic();
+            }
+        }
+
+        private void PortsComboBox_DropDown(object? sender, EventArgs e)
+        {
+            LoadPorts(); // refresh the list each time it opens
+        }
+
+        // Runs every 20 ms while in external mode.
+        private void PicTimer_Tick(object? sender, EventArgs e)
+        {
+            try
+            {
+                // was the adapter unplugged?
+                if (Array.IndexOf(SerialPort.GetPortNames(), picPort.PortName) < 0)
+                {
+                    throw new IOException("The COM port was unplugged.");
+                }
+
+                if (waiting)
+                {
+                    if (picPort.BytesToRead >= 6)
+                    {
+                        ReadAdcReply();
+                    }
+                    else if (DateTime.Now > replyDeadline)
+                    {
+                        throw new TimeoutException("The PIC did not answer. Is this the right COM port?");
+                    }
+                }
+                else
+                {
+                    // ask for one pot: 24 41 01 channel
+                    byte[] request = { 0x24, 0x41, 0x01, (byte)nextChannel };
+                    picPort.Write(request, 0, request.Length);
+                    waiting = true;
+                    replyDeadline = DateTime.Now.AddMilliseconds(500);
+                }
+            }
+            catch (Exception ex)
+            {
+                PicError(ex.Message);
+            }
+        }
+
+        private void ToolComboBox_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            UpdatePenWidth();
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            DisconnectPic(); // always release the COM port
+            base.OnFormClosed(e);
         }
     }
 }
