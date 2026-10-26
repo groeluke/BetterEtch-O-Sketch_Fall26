@@ -1,7 +1,7 @@
 /*Luke Groesbeck
 *Fall 2026
 *RCET 3371
-*DartGame
+*Etch-O-Sketch
 *Advanced Programming Techniques & GUI Development
 *https://github.com/groeluke/BetterEtch-O-Sketch_Fall26.git
 */
